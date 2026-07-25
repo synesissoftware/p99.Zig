@@ -1,0 +1,12 @@
+.{
+    .fingerprint = 0xfa31b4f0ad2d50c3,
+    .name = .p99,
+    .paths = .{
+        "build.zig",
+        "build.zig.zon",
+        "src",
+        "LICENSE",
+        "README.md",
+    },
+    .version = "0.0.0",
+}
