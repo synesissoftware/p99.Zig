@@ -6,7 +6,7 @@
 [![Last Commit](https://img.shields.io/github/last-commit/synesissoftware/p99.Zig)](https://github.com/synesissoftware/p99.Zig/commits/master)
 [![CI](https://github.com/synesissoftware/p99.Zig/actions/workflows/ci.yml/badge.svg)](https://github.com/synesissoftware/p99.Zig/actions/workflows/ci.yml)
 
-Low-cost generation of performance percentiles (p50, p90, p99, p99.9, etc.).
+Very low-cost measuring of performance percentiles, for Zig
 
 
 ## Table of Contents <!-- omit in toc -->
@@ -45,3 +45,4 @@ T.B.C.
 **p99.Zig** is released under the 3-clause BSD license. See [LICENSE](./LICENSE) for details.
 
 <!-- ########################### end of file ########################### -->
+
