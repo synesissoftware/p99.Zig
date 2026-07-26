@@ -46,7 +46,7 @@ pub fn main(init: std.process.Init) !void {
         const avg_ns = @as(f64, @floatFromInt(total_ns)) / @as(f64, @floatFromInt(count * trials));
 
         try stdout.print("Benchmark: Push Sequential Events\n", .{});
-        try stdout.print("  Total events: {d} (across {d} trials)\n", .{count * trials, trials});
+        try stdout.print("  Total events: {d} (across {d} trials)\n", .{ count * trials, trials });
         try stdout.print("  Average/push: {d:.2} ns\n\n", .{avg_ns});
     }
 
@@ -89,7 +89,7 @@ pub fn main(init: std.process.Init) !void {
         const avg_ns = @as(f64, @floatFromInt(total_ns)) / @as(f64, @floatFromInt(count * trials));
 
         try stdout.print("Benchmark: Push Random Events (1ns to 10s wide-range)\n", .{});
-        try stdout.print("  Total events: {d} (across {d} trials)\n", .{count * trials, trials});
+        try stdout.print("  Total events: {d} (across {d} trials)\n", .{ count * trials, trials });
         try stdout.print("  Average/push: {d:.2} ns\n\n", .{avg_ns});
     }
 
@@ -135,7 +135,7 @@ pub fn main(init: std.process.Init) !void {
         const avg_ns = @as(f64, @floatFromInt(total_ns)) / @as(f64, @floatFromInt(query_count * trials));
 
         try stdout.print("Benchmark: Percentile Queries (valueAtP99 on 10s wide-range)\n", .{});
-        try stdout.print("  Total queries: {d} (across {d} trials)\n", .{query_count * trials, trials});
+        try stdout.print("  Total queries: {d} (across {d} trials)\n", .{ query_count * trials, trials });
         try stdout.print("  Average/query: {d:.2} ns\n\n", .{avg_ns});
     }
 
@@ -174,7 +174,7 @@ pub fn main(init: std.process.Init) !void {
         const avg_ns = @as(f64, @floatFromInt(total_ns)) / @as(f64, @floatFromInt(loop_count * trials));
 
         try stdout.print("Benchmark: Clear\n", .{});
-        try stdout.print("  Total clears: {d} (across {d} trials)\n", .{loop_count * trials, trials});
+        try stdout.print("  Total clears: {d} (across {d} trials)\n", .{ loop_count * trials, trials });
         try stdout.print("  Average/clear: {d:.2} ns\n\n", .{avg_ns});
     }
 
@@ -220,7 +220,7 @@ pub fn main(init: std.process.Init) !void {
         const avg_ns = @as(f64, @floatFromInt(total_ns)) / @as(f64, @floatFromInt(query_count * trials));
 
         try stdout.print("Benchmark: Generic Percentile Queries (valueAtPercentile(99.0))\n", .{});
-        try stdout.print("  Total queries: {d} (across {d} trials)\n", .{query_count * trials, trials});
+        try stdout.print("  Total queries: {d} (across {d} trials)\n", .{ query_count * trials, trials });
         try stdout.print("  Average/query: {d:.2} ns\n\n", .{avg_ns});
     }
 
