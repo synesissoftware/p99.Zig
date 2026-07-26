@@ -22,7 +22,7 @@
 ## Packaging improvements
 
 - [ ] Publish the package to Zig package registries.
-- [ ] Set up a GitHub Actions CI/CD pipeline for automated testing.
+- [x] Set up a GitHub Actions CI/CD pipeline for automated testing.
 
 
 <!-- ########################### end of file ########################### -->
