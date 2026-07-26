@@ -10,17 +10,19 @@
 
 ## Functional improvements
 
-- T.B.C.
+- [ ] Support custom percentile lists or dynamic percentile inputs.
+- [ ] Add serialization and deserialization support for the `Histogram` struct.
 
 
 ## Performance improvements
 
-- T.B.C.
+- [ ] Implement $2^{32}$ fixed-point binary scaling float-avoidance optimizations from `p99.Rust` as a comptime build option.
 
 
 ## Packaging improvements
 
-- T.B.C.
+- [ ] Publish the package to Zig package registries.
+- [ ] Set up a GitHub Actions CI/CD pipeline for automated testing.
 
 
 <!-- ########################### end of file ########################### -->
