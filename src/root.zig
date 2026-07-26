@@ -1,6 +1,7 @@
 // src/root.zig : p99.Zig
 
 const std = @import("std");
+const build_options = @import("build_options");
 
 /// Low-cost performance percentile histogram using 64 buckets.
 ///
@@ -248,7 +249,10 @@ pub const Histogram = struct {
     /// Returns the approximated duration (in nanoseconds) at the 90th
     /// percentile (p90).
     pub fn valueAtP90(self: *const Histogram) ?u64 {
-        const target_rank = (@as(u128, self.event_count) * 90) / 100;
+        const target_rank = if (build_options.binary_scaling)
+            (@as(u128, self.event_count) * 3_865_470_566) >> 32
+        else
+            (@as(u128, self.event_count) * 90) / 100;
 
         return self.valueAtTargetRankImpl(@as(u64, @intCast(target_rank)));
     }
@@ -256,7 +260,10 @@ pub const Histogram = struct {
     /// Returns the approximated duration (in nanoseconds) at the 95th
     /// percentile (p95).
     pub fn valueAtP95(self: *const Histogram) ?u64 {
-        const target_rank = (@as(u128, self.event_count) * 95) / 100;
+        const target_rank = if (build_options.binary_scaling)
+            (@as(u128, self.event_count) * 4_080_218_931) >> 32
+        else
+            (@as(u128, self.event_count) * 95) / 100;
 
         return self.valueAtTargetRankImpl(@as(u64, @intCast(target_rank)));
     }
@@ -264,7 +271,10 @@ pub const Histogram = struct {
     /// Returns the approximated duration (in nanoseconds) at the 99th
     /// percentile (p99).
     pub fn valueAtP99(self: *const Histogram) ?u64 {
-        const target_rank = (@as(u128, self.event_count) * 99) / 100;
+        const target_rank = if (build_options.binary_scaling)
+            (@as(u128, self.event_count) * 4_252_017_623) >> 32
+        else
+            (@as(u128, self.event_count) * 99) / 100;
 
         return self.valueAtTargetRankImpl(@as(u64, @intCast(target_rank)));
     }
@@ -272,7 +282,10 @@ pub const Histogram = struct {
     /// Returns the approximated duration (in nanoseconds) at the 99.5th
     /// percentile (p99.5).
     pub fn valueAtP99_5(self: *const Histogram) ?u64 {
-        const target_rank = (@as(u128, self.event_count) * 995) / 1000;
+        const target_rank = if (build_options.binary_scaling)
+            (@as(u128, self.event_count) * 4_273_492_460) >> 32
+        else
+            (@as(u128, self.event_count) * 995) / 1000;
 
         return self.valueAtTargetRankImpl(@as(u64, @intCast(target_rank)));
     }
@@ -280,7 +293,10 @@ pub const Histogram = struct {
     /// Returns the approximated duration (in nanoseconds) at the 99.9th
     /// percentile (p99.9).
     pub fn valueAtP99_9(self: *const Histogram) ?u64 {
-        const target_rank = (@as(u128, self.event_count) * 999) / 1000;
+        const target_rank = if (build_options.binary_scaling)
+            (@as(u128, self.event_count) * 4_290_672_329) >> 32
+        else
+            (@as(u128, self.event_count) * 999) / 1000;
 
         return self.valueAtTargetRankImpl(@as(u64, @intCast(target_rank)));
     }
@@ -288,7 +304,10 @@ pub const Histogram = struct {
     /// Returns the approximated duration (in nanoseconds) at the 99.99th
     /// percentile (p99.99).
     pub fn valueAtP99_99(self: *const Histogram) ?u64 {
-        const target_rank = (@as(u128, self.event_count) * 9999) / 10000;
+        const target_rank = if (build_options.binary_scaling)
+            (@as(u128, self.event_count) * 4_294_537_799) >> 32
+        else
+            (@as(u128, self.event_count) * 9999) / 10000;
 
         return self.valueAtTargetRankImpl(@as(u64, @intCast(target_rank)));
     }
@@ -296,7 +315,10 @@ pub const Histogram = struct {
     /// Returns the approximated duration (in nanoseconds) at the 99.999th
     /// percentile (p99.999).
     pub fn valueAtP99_999(self: *const Histogram) ?u64 {
-        const target_rank = (@as(u128, self.event_count) * 99999) / 100000;
+        const target_rank = if (build_options.binary_scaling)
+            (@as(u128, self.event_count) * 4_294_924_346) >> 32
+        else
+            (@as(u128, self.event_count) * 99999) / 100000;
 
         return self.valueAtTargetRankImpl(@as(u64, @intCast(target_rank)));
     }
@@ -304,7 +326,10 @@ pub const Histogram = struct {
     /// Returns the approximated duration (in nanoseconds) at the 99.9999th
     /// percentile (p99.9999).
     pub fn valueAtP99_999_9(self: *const Histogram) ?u64 {
-        const target_rank = (@as(u128, self.event_count) * 999999) / 1000000;
+        const target_rank = if (build_options.binary_scaling)
+            (@as(u128, self.event_count) * 4_294_963_001) >> 32
+        else
+            (@as(u128, self.event_count) * 999999) / 1000000;
 
         return self.valueAtTargetRankImpl(@as(u64, @intCast(target_rank)));
     }
