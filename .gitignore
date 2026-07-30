@@ -1,0 +1,20 @@
+# directories (by name)
+
+/scratch/
+/scripts/__pycache__/
+/.zig-cache/
+/zig-out/
+
+# directories (by pattern)
+
+
+# files (by name)
+
+.DS_Store
+
+# files (by pattern)
+
+*~
+*.swp
+*.tmp
+*.zip
