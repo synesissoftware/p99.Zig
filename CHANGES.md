@@ -1,6 +1,16 @@
 # p99.Zig CHANGES <!-- omit in toc -->
 
 
+## 0.0.3 - 26th July 2026
+
+Added `binary-scaling` optimisation
+
+* Implemented optional $2^{32}$ fixed-point binary scaling float-avoidance optimizations from `p99.Rust` as a comptime build option (`-Dbinary-scaling`);
+* Added `binary-scaling` option to `build.zig` and passed it to the root module as `build_options`;
+* Updated integer-based percentile methods (`valueAtP90`, `valueAtP95`, `valueAtP99`, etc.) to use pre-encoded $2^{32}$ fixed-point multipliers when `binary_scaling` is enabled;
+* Bumped package version to `0.0.3`;
+
+
 ## 0.0.2 - 26th July 2026
 
 GitHub Actions CI

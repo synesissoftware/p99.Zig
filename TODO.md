@@ -16,7 +16,7 @@
 
 ## Performance improvements
 
-- [ ] Implement $2^{32}$ fixed-point binary scaling float-avoidance optimizations from `p99.Rust` as a comptime build option.
+- [x] Implement $2^{32}$ fixed-point binary scaling float-avoidance optimizations from `p99.Rust` as a comptime build option.
 
 
 ## Packaging improvements

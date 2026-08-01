@@ -4,12 +4,24 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
+    // Build option for binary scaling (mirroring Rust's feature flag)
+    const binary_scaling = b.option(
+        bool,
+        "binary-scaling",
+        "Enable 2^32 fixed-point binary scaling for integer-based percentile queries (default: false)",
+    ) orelse false;
+
     // Create a module for other packages to import
     const p99_module = b.addModule("p99", .{
         .root_source_file = b.path("src/root.zig"),
         .target = target,
         .optimize = optimize,
     });
+
+    // Add build options to the module
+    const options = b.addOptions();
+    options.addOption(bool, "binary_scaling", binary_scaling);
+    p99_module.addOptions("build_options", options);
 
     // Static library using the module
     const lib = b.addLibrary(.{

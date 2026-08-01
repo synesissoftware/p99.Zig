@@ -14,7 +14,9 @@ Very low-cost measuring of performance percentiles, for Zig
 - [Introduction](#introduction)
 - [How It Works](#how-it-works)
 - [Installation](#installation)
+- [Build Options](#build-options)
 - [Minimal Example](#minimal-example)
+- [Benchmarks](#benchmarks)
 - [Project Information](#project-information)
   - [Where to get help](#where-to-get-help)
   - [Contribution guidelines](#contribution-guidelines)
@@ -81,6 +83,23 @@ exe.root_module.addImport("p99", p99_dep.module("p99"));
 ```
 
 
+## Build Options
+
+`p99.Zig` supports the following compile-time build options:
+
+* **`binary-scaling`** *(bool, default: `false`)*: Replaces integer division in the integer-based percentile methods (`valueAtP90`, `valueAtP95`, `valueAtP99`, etc.) with $2^{32}$ fixed-point binary scaling. Each percentile multiplier (e.g., `0.90` for p90) is pre-encoded as a `u32` constant and the target rank is computed via a single multiplication and a 32-bit right-shift, avoiding the cost of integer division entirely. This yields a significant speedup for percentile queries with a negligible loss of accuracy (the scaled multiplier differs from the true value by less than $10^{-9}$). The generic `valueAtPercentile(f64)` method is unaffected by this feature.
+
+To enable this option in your project, pass it when fetching the dependency in your `build.zig`:
+
+```zig
+const p99_dep = b.dependency("p99", .{
+    .target = target,
+    .optimize = optimize,
+    .@"binary-scaling" = true,
+});
+```
+
+
 ## Minimal Example
 
 Here is a minimal example demonstrating how to use `p99.Zig`:
@@ -112,6 +131,23 @@ pub fn main(init: std.process.Init) !void {
 
     try stdout.flush();
 }
+```
+
+
+## Benchmarks
+
+A benchmark suite is included in `benches/benchmark_histogram.zig` to measure performance.
+
+To run the benchmarks in **ReleaseFast** mode (without binary scaling):
+
+```bash
+zig build bench -Doptimize=ReleaseFast
+```
+
+To run the benchmarks with the **binary-scaling** optimization enabled:
+
+```bash
+zig build bench -Dbinary-scaling=true -Doptimize=ReleaseFast
 ```
 
 
