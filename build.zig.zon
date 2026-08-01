@@ -1,12 +1,19 @@
 .{
+    .authors = .{
+        "Matt Wilson <matthew@synesis.com.au>",
+    },
+    .description = "A high-performance histogram implementation in Zig",
     .fingerprint = 0xfa31b4f0ad2d50c3,
     .name = .p99,
     .paths = .{
-        "build.zig",
-        "build.zig.zon",
-        "src",
+        "CHANGES.md",
         "LICENSE",
         "README.md",
+        "benches",
+        "build.zig.zon",
+        "build.zig",
+        "examples",
+        "src",
     },
     .version = "0.0.3",
 }
