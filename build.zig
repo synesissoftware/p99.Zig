@@ -4,24 +4,12 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    // Build option for binary scaling (mirroring Rust's feature flag)
-    const binary_scaling = b.option(
-        bool,
-        "binary-scaling",
-        "Enable 2^32 fixed-point binary scaling for integer-based percentile queries (default: false)",
-    ) orelse false;
-
     // Create a module for other packages to import
     const p99_module = b.addModule("p99", .{
         .root_source_file = b.path("src/root.zig"),
         .target = target,
         .optimize = optimize,
     });
-
-    // Add build options to the module
-    const options = b.addOptions();
-    options.addOption(bool, "binary_scaling", binary_scaling);
-    p99_module.addOptions("build_options", options);
 
     // Static library using the module
     const lib = b.addLibrary(.{
@@ -59,4 +47,24 @@ pub fn build(b: *std.Build) void {
 
     const run_example_step = b.step("run-example", "Run the build_histogram example");
     run_example_step.dependOn(&run_example.step);
+
+    // Benchmark: benchmark_histogram
+    const bench = b.addExecutable(.{
+        .name = "benchmark_histogram",
+        .root_module = b.createModule(.{
+            .root_source_file = b.path("benches/benchmark_histogram.zig"),
+            .target = target,
+            .optimize = optimize,
+        }),
+    });
+    bench.root_module.addImport("p99", p99_module);
+    b.installArtifact(bench);
+
+    const run_bench = b.addRunArtifact(bench);
+    if (b.args) |args| {
+        run_bench.addArgs(args);
+    }
+
+    const run_bench_step = b.step("bench", "Run the benchmark_histogram suite");
+    run_bench_step.dependOn(&run_bench.step);
 }
