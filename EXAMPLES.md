@@ -1,4 +1,4 @@
-# p99.Zig - EXAMPLES <!-- omit in toc -->
+# p99.Zig - Examples <!-- omit in toc -->
 
 
 <!-- ########################### end of file ########################### -->

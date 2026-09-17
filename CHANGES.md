@@ -1,4 +1,9 @@
-# p99.Zig CHANGES <!-- omit in toc -->
+# p99.Zig - Changes <!-- omit in toc -->
+
+
+## 0.1.0 - 1st August 2026
+
+* first polished version, including `Histogram` type and `-Dbinary-scaling` build option;
 
 
 ## 0.0.3 - 26th July 2026

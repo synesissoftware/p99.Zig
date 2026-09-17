@@ -1,4 +1,4 @@
-# p99.Zig - NEWS <!-- omit in toc -->
+# p99.Zig - News <!-- omit in toc -->
 
 | Date                  | News Item                                 |
 | --------------------- | ----------------------------------------- |
