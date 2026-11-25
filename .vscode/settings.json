@@ -1,20 +1,10 @@
 {
 	"[json]": {
-		"editor.insertSpaces": false,
+		"editor.insertSpaces": true,
 		"editor.tabSize": 2,
 	},
 	"[markdown]": {
 		"editor.insertSpaces": true,
-		"editor.tabSize": 2,
-	},
-	"[python]": {
-		"editor.insertSpaces": true,
-		"editor.rulers": [ 60, 76 ],
-		"editor.tabSize": 4,
-	},
-	"[ruby]": {
-		"editor.insertSpaces": true,
-		"editor.rulers": [ 60, 76 ],
 		"editor.tabSize": 2,
 	},
 	"[toml]": {
@@ -22,11 +12,18 @@
 		"editor.tabSize": 2,
 	},
 	"[zig]": {
-		"editor.insertSpaces": true,
-		"editor.tabSize": 4,
+		"editor.codeActionsOnSave": {
+			"source.fixAll": "explicit",
+			"source.organizeImports": "explicit",
+		},
+		"editor.defaultFormatter": "ziglang.vscode-zig",
 		"editor.formatOnSave": true,
-		"editor.defaultFormatter": "ziglang.vscode-zig"
+		"editor.insertSpaces": true,
+		"editor.suggest.insertMode": "replace",
+		"editor.tabSize": 4,
 	},
+	"cmake.configureOnOpen": false,
+	"debug.allowBreakpointsEverywhere": true,
 	"editor.detectIndentation": false,
 	"editor.insertSpaces": false,
 	"editor.renderWhitespace": "all",
@@ -35,4 +32,5 @@
 	"files.insertFinalNewline": true,
 	"files.trimTrailingWhitespace": true,
 	"git.mergeEditor": false,
+	"zig.zls.enabled": "on",
 }

@@ -1,17 +1,18 @@
 # p99.Zig <!-- omit in toc -->
 
+Very low-cost measuring of performance percentiles, for Zig
+
 ![Language](https://img.shields.io/badge/Zig-F7A41D?style=flat&logo=zig&logoColor=white)
 [![License](https://img.shields.io/badge/License-BSD_3--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 [![GitHub release](https://img.shields.io/github/v/release/synesissoftware/p99.Zig.svg)](https://github.com/synesissoftware/p99.Zig/releases/latest)
 [![Last Commit](https://img.shields.io/github/last-commit/synesissoftware/p99.Zig)](https://github.com/synesissoftware/p99.Zig/commits/master)
 [![CI](https://github.com/synesissoftware/p99.Zig/actions/workflows/ci.yml/badge.svg)](https://github.com/synesissoftware/p99.Zig/actions/workflows/ci.yml)
 
-Very low-cost measuring of performance percentiles, for Zig
-
 
 ## Table of Contents <!-- omit in toc -->
 
 - [Introduction](#introduction)
+- [Developer Experience](#developer-experience)
 - [How It Works](#how-it-works)
 - [Installation](#installation)
 - [Build Options](#build-options)
@@ -31,6 +32,38 @@ Very low-cost measuring of performance percentiles, for Zig
 **p99** is a lightweight, low-overhead library designed for generating real-time performance percentiles in high-frequency or latency-sensitive environments.
 
 **p99.Zig** is the **Zig** implementation.
+
+
+## Developer Experience
+
+**p99.Zig** builds with Zig **0.17.1**. It has no dependencies.
+
+```bash
+zig build test
+zig build run-example
+```
+
+The smallest use records durations and reads a percentile:
+
+```zig
+const std = @import("std");
+const p99 = @import("p99");
+
+pub fn main(init: std.process.Init) !void {
+    var buffer: [256]u8 = undefined;
+    var stdout_impl = std.Io.File.stdout().writer(init.io, &buffer);
+    const stdout = &stdout_impl.interface;
+
+    var h = p99.Histogram{};
+    _ = h.pushEventTimeNs(100);
+    _ = h.pushEventTimeNs(5000);
+
+    try stdout.print("P99: {d} ns\n", .{h.valueAtP99().?});
+    try stdout.flush();
+}
+```
+
+That shape is the opening of [examples/build_histogram.zig](./examples/build_histogram.zig). Integer percentile queries can use the `binary-scaling` build option (see **Build Options**). `zig build bench` runs the histogram suite.
 
 
 ## How It Works
@@ -54,7 +87,7 @@ When querying percentiles (e.g., P50, P99), the library performs linear interpol
 The recommended way to add `p99.Zig` to your project is using the `zig fetch` command. Run the following in your project root:
 
 ```bash
-zig fetch --save https://github.com/synesissoftware/p99.Zig/archive/refs/tags/v0.0.1.tar.gz
+zig fetch --save https://github.com/synesissoftware/p99.Zig/archive/refs/tags/0.1.1.tar.gz
 ```
 
 This will automatically download the package, compute its hash, and add it to your `build.zig.zon` dependencies:
@@ -65,7 +98,7 @@ This will automatically download the package, compute its hash, and add it to yo
     .version = "0.1.0",
     .dependencies = .{
         .p99 = .{
-            .url = "https://github.com/synesissoftware/p99.Zig/archive/refs/tags/v0.0.1.tar.gz",
+            .url = "https://github.com/synesissoftware/p99.Zig/archive/refs/tags/0.1.1.tar.gz",
             .hash = "1220...", // Automatically calculated by zig fetch
         },
     },
