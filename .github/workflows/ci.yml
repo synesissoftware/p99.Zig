@@ -5,7 +5,11 @@ on:
     branches:
       - master
       - dev
-      - "v[0-9]*"
+      - boilerplate
+      - idiomatic
+      - rc1
+      - rc2
+      - rc3
   pull_request:
 
 concurrency:
@@ -24,7 +28,7 @@ jobs:
       - name: Setup Zig
         uses: mlugg/setup-zig@v2
         with:
-          version: 0.16.0
+          version: 0.17.1
 
       - name: Check Formatting
         run: zig fmt --check .
@@ -44,13 +48,13 @@ jobs:
       - name: Setup Zig
         uses: mlugg/setup-zig@v2
         with:
-          version: 0.16.0
+          version: 0.17.1
 
       - name: Run Unit Tests
-        run: zig build test --global-cache-dir .zig-cache
+        run: zig build test
 
       - name: Run Example
-        run: zig build run-example --global-cache-dir .zig-cache
+        run: zig build run-example
 
       - name: Run Benchmarks
-        run: zig build bench --global-cache-dir .zig-cache
+        run: zig build bench

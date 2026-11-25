@@ -1,9 +1,13 @@
+# Synesis Information Systems .gitignore for Zig projects
+
+
 # directories (by name)
 
-/scratch/
-/scripts/__pycache__/
 /.zig-cache/
+/scratch/
 /zig-out/
+/zig-pkg/
+
 
 # directories (by pattern)
 
@@ -12,9 +16,10 @@
 
 .DS_Store
 
+
 # files (by pattern)
 
 *~
-*.swp
+*.sw[pon]
 *.tmp
 *.zip

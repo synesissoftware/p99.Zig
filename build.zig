@@ -53,12 +53,41 @@ pub fn build(b: *std.Build) void {
     b.installArtifact(example);
 
     const run_example = b.addRunArtifact(example);
-    if (b.args) |args| {
+    // Zig 0.17 forwards `zig build run -- …` through `addPassthruArgs`.
+    // Zig 0.16 still exposes those arguments as `b.args`.
+    if (comptime @hasDecl(std.Build.Step.Run, "addPassthruArgs")) {
+        run_example.addPassthruArgs();
+    } else if (b.args) |args| {
         run_example.addArgs(args);
     }
 
-    const run_example_step = b.step("run-example", "Run the build_histogram example");
+    const run_example_step = b.step("run-example", "Run the examples");
     run_example_step.dependOn(&run_example.step);
+
+    // Example: show_version
+    const show_version = b.addExecutable(.{
+        .name = "show_version",
+        .root_module = b.createModule(.{
+            .root_source_file = b.path("examples/show_version.zig"),
+            .target = target,
+            .optimize = optimize,
+        }),
+    });
+    show_version.root_module.addImport("p99", p99_module);
+    b.installArtifact(show_version);
+
+    const run_show_version = b.addRunArtifact(show_version);
+    // Zig 0.17 forwards `zig build run -- …` through `addPassthruArgs`.
+    // Zig 0.16 still exposes those arguments as `b.args`.
+    if (comptime @hasDecl(std.Build.Step.Run, "addPassthruArgs")) {
+        run_show_version.addPassthruArgs();
+    } else if (b.args) |args| {
+        run_show_version.addArgs(args);
+    }
+
+    const run_show_version_step = b.step("run-show-version", "Run the show_version example");
+    run_show_version_step.dependOn(&run_show_version.step);
+    run_example_step.dependOn(&run_show_version.step);
 
     // Benchmark: benchmark_histogram
     const bench = b.addExecutable(.{
@@ -73,7 +102,11 @@ pub fn build(b: *std.Build) void {
     b.installArtifact(bench);
 
     const run_bench = b.addRunArtifact(bench);
-    if (b.args) |args| {
+    // Zig 0.17 forwards `zig build run -- …` through `addPassthruArgs`.
+    // Zig 0.16 still exposes those arguments as `b.args`.
+    if (comptime @hasDecl(std.Build.Step.Run, "addPassthruArgs")) {
+        run_bench.addPassthruArgs();
+    } else if (b.args) |args| {
         run_bench.addArgs(args);
     }
 

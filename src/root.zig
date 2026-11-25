@@ -3,6 +3,13 @@
 const std = @import("std");
 const build_options = @import("build_options");
 
+/// Package version.
+pub const VERSION = "0.1.1";
+
+test "version" {
+    try std.testing.expectEqualStrings("0.1.1", VERSION);
+}
+
 /// Low-cost performance percentile histogram using 64 buckets.
 ///
 /// Tracks event durations with nanosecond precision across 64 logarithmic
@@ -14,7 +21,7 @@ pub const Histogram = struct {
     has_overflowed: bool = false,
     min_event_time: ?u64 = null,
     max_event_time: ?u64 = null,
-    buckets: [64]u64 = [_]u64{0} ** 64,
+    buckets: [64]u64 = @splat(0),
 
     // API (class) methods
 

@@ -1,4 +1,14 @@
-# p99.Zig CHANGES <!-- omit in toc -->
+# p99.Zig - Changes <!-- omit in toc -->
+
+
+## 0.1.1 - 26th November 2026
+
+* Forwarded `zig build` run arguments with `addPassthruArgs` on Zig **0.17.1**;
+* Retargeted **.github/workflows/ci.yml** at Zig **0.17.1** and dropped `--global-cache-dir`;
+* Aligned Zig scaffold drop-ins and the **README.md** **Developer Experience** section;
+* Initialised histogram buckets with `@splat` for Zig **0.17.1** `zig fmt`;
+* Added `VERSION` (`"0.1.1"`) and **examples/show_version.zig**;
+* Added **AUTHORS.md**;
 
 
 ## 0.1.0 - 1st August 2026
